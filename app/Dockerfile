@@ -1,10 +1,10 @@
-FROM python:3.11-slim
+FROM python:3.10-slim
 
 WORKDIR /app
+COPY . /app
 
-COPY conecta_postgres.py .
+RUN pip install flask flask-restx gunicorn
 
-RUN pip install psycopg2-binary flask flask-restx gunicorn
+EXPOSE 80
 
-CMD ["gunicorn","--bind", "0.0.0:5000","conecta_postgres:app"]
-
+CMD ["gunicorn", "-b", "0.0.0.0:80", "app:app"]
