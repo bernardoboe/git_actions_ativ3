@@ -15,17 +15,31 @@ modelo = api.model('Operacao', {
 
 @ns.route('/soma')
 class Soma(Resource):
-    @ns.expect(modelo)
+    @ns.expect(modelo) # Espera o modelo definido
     def post(self):
+        """Realiza a soma de dois números"""
         data = request.get_json()
-        return {'resultado': data['num1'] + data['num2']}
+        num1 = data.get('num1')
+        num2 = data.get('num2')
+        # Retorna o resultado em formato JSON
+
+        resultado = num1 + num2
+        return {'resultado': resultado}
+        
 
 @ns.route('/multiplicacao')
 class Multiplicacao(Resource):
-    @ns.expect(modelo)
+    @ns.expect(modelo) # Espera o modelo definido
     def post(self):
+        """Realiza a multiplicação de dois números"""
         data = request.get_json()
-        return {'resultado': data['num1'] * data['num2']}
+        num1 = data.get('num1')
+        num2 = data.get('num2')
+        resultado = num1 * num2
+        # Retorna o resultado em formato JSON
+        return {'resultado': resultado}
 
 if __name__ == '__main__':
+    # Este bloco só é executado se você rodar o script Python diretamente (python app.py)
+    # Com Docker e Gunicorn, o ponto de entrada é o Gunicorn, não este bloco.
     app.run(debug=True)
